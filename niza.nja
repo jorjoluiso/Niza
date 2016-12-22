@@ -1,0 +1,29 @@
+{
+  "mainFile": "__init__.py", 
+  "use-tabs": false, 
+  "venv": "", 
+  "relatedProjects": [], 
+  "name": "Niza", 
+  "license": "GNU General Public License v2", 
+  "url": "", 
+  "pythonPath": "python", 
+  "preExecScript": "", 
+  "additional_builtins": [], 
+  "programParams": "", 
+  "indentation": 4, 
+  "PYTHONPATH": "", 
+  "supported-extensions": [
+    ".py", 
+    ".html", 
+    ".jpg", 
+    ".png", 
+    ".ui", 
+    ".css", 
+    ".json", 
+    ".js", 
+    ".ini"
+  ], 
+  "project-type": "", 
+  "postExecScript": "", 
+  "description": "Aplicaci\u00f3n para sincronizar los archivos XML de factura electr\u00f3nica de Ecuador a una base de datos y a una aplicaci\u00f3n web, para descargarlos."
+}
