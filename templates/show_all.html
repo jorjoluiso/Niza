@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       
+       <title>Niza</title>
+   </head>
+   <body>
+      
+      <h3>Niza</h3>
+      
+      {%- for message in get_flashed_messages() %}
+         {{ message }}
+      {%- endfor %}
+	
+      
+      <table>
+         <thead>
+            <tr>
+               <th>Documento</th>
+               <th>Razón Social</th>
+               <th>Nombre Comercial</th>
+               <th>Dirección</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for contribuyente in ele_contribuyentes %}
+               <tr>
+                  <td>{{ contribuyente.documento }}</td>
+                  <td>{{ contribuyente.razon_social }}</td>
+                  <td>{{ contribuyente.nombre_comercial }}</td>
+                  <td>{{ contribuyente.direccion }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      
+   </body>
+</html>
