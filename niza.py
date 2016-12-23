@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import render_template
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://root:root@localhost/niza'
+app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://root:horiz0ns@localhost/niza'
 db = SQLAlchemy(app)
 
 class ele_contribuyentes(db.Model):
