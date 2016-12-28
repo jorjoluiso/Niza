@@ -3,8 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import render_template
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://root:horiz0ns@localhost/niza'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:horiz0ns@localhost/niza'
 db = SQLAlchemy(app)
+
 
 class ele_contribuyentes(db.Model):
     documento = db.Column('documento', db.String(20), primary_key=True)
@@ -18,9 +19,10 @@ class ele_contribuyentes(db.Model):
         self.nombre_comercial = nombre_comercial
         self.direccion = direccion
 
+
 @app.route('/')
 def show_all():
-   return render_template('show_all.html', ele_contribuyentes = ele_contribuyentes.query.all())
+    return render_template('show_all.html', ele_contribuyentes=ele_contribuyentes.query.all())
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
