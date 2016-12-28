@@ -21,8 +21,16 @@ class ele_contribuyentes(db.Model):
 
 
 @app.route('/')
-def show_all():
-    return render_template('show_all.html', ele_contribuyentes=ele_contribuyentes.query.all())
+def home():
+    return render_template('home.html', ele_contribuyentes=ele_contribuyentes.query.all())
+
+@app.route("/documento")
+def documento():
+    return render_template('busca_documento.html')
+
+@app.route("/fecha")
+def fecha():
+    return render_template('busca_fecha.html')
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
