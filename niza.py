@@ -1,8 +1,8 @@
 from flask import Flask
 from flask import render_template
-from flask import request, make_response, send_file
+from flask import request, send_file
 from Modelos import *
-
+from Config import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:horiz0ns@localhost/niza'
@@ -39,7 +39,17 @@ def documento():
 def descargarPDF(pdf=None):
     if pdf is not None:
         print("Descargar archivo PDF",pdf)
-        return send_file('/home/jorjoluiso/Electronicas/Ferriacabados/pdf/'+pdf, as_attachment=True)
+        cfg = Config()
+        cfg.getConfig()
+        return send_file(cfg.rutaPDF + os.sep + pdf, as_attachment=True)
+
+@app.route('/descargar_xml/<xml>')
+def descargarXML(xml=None):
+    if xml is not None:        
+        print("Descargar archivo XML",xml)
+        cfg = Config()
+        cfg.getConfig()
+        return send_file(cfg.rutaXML + os.sep + xml, as_attachment=True)
 
 
 @app.route("/fecha")

@@ -99,7 +99,7 @@
               <td>{{ documento.establecimiento }}</td>
               <td>{{ documento.punto_emision }}</td>
               <td>{{ documento.secuencial }}</td>
-              <td><a href="estado_comprobante.jsp?codigo={{ documento.clave_acceso }}"><span class="glyphicon glyphicon-download"></span></a></td>
+              <td><a href="descargar_xml/{{ documento.clave_acceso }}.xml"><span class="glyphicon glyphicon-download"></span></a></td>
               <td><a href="descargar_pdf/{{ documento.clave_acceso }}.pdf"><span class="glyphicon glyphicon-download-alt"></span></a></td>
             </tr>
             {% endfor %}

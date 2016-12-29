@@ -16,8 +16,8 @@ class Config(object):
         config = configparser.ConfigParser()
         config["Directorios"] = {}
         param = config["Directorios"]
-        param["rutaXML"] = "/home/jorgequiguango/Electronicas/Ferriacabados/autorizado"
-        param["rutaPDF"] = "/home/jorgequiguango/Electronicas/Ferriacabados/pdf"
+        param["rutaXML"] = "/home/jorjoluiso/Electronicas/Ferriacabados/autorizado"
+        param["rutaPDF"] = "/home/jorjoluiso/Electronicas/Ferriacabados/pdf"
 
         config["Sqlite"] = {}
         param = config["Sqlite"]
