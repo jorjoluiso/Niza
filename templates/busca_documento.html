@@ -73,15 +73,39 @@
     </div>
     <div class="panel panel-success">
       <div class="panel-heading">
-        
-        <h4>{{ nombre }}    {{ documento }}</h4>
-        
+
+        <h4>{{ nombre }} {{ documento }}</h4>
+
       </div>
       <div class="panel-body">
 
-        {% for documento in ele_documentos %}
-        <h5>{{ documento.clave_acceso }}</h5>
-        {% endfor %}
+
+        <h5></h5>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Est.</th>
+              <th>Pto.</th>
+              <th>Número</th>
+              <th>XML</th>
+              <th>PDF</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for documento in ele_documentos %}
+            <tr>
+              <td>{{ documento.fecha_emision.strftime('%Y-%m-%d') }}</td>
+              <td>{{ documento.establecimiento }}</td>
+              <td>{{ documento.punto_emision }}</td>
+              <td>{{ documento.secuencial }}</td>
+              <td><a href="estado_comprobante.jsp?codigo={{ documento.clave_acceso }}"><span class="glyphicon glyphicon-download"></span></a></td>
+              <td><a href="procesar_autorizacion.jsp?codigo="><span class="glyphicon glyphicon-download-alt"></span></a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
       </div>
     </div>
   </div>

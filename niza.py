@@ -66,7 +66,8 @@ def documento():
             nombre = nombreReceptor.razonSocialReceptor
             print("Nombre", nombre)
 
-            return render_template('busca_documento.html',ele_documentos=ele_documentos.query.filter_by(identificacionReceptor=documento).all(), 
+            return render_template('busca_documento.html',
+            ele_documentos=ele_documentos.query.filter_by(identificacionReceptor=documento).order_by(ele_documentos.fecha_emision.desc()).all(), 
             nombre=nombre, documento=documento)    
 
 
