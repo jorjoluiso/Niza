@@ -100,7 +100,7 @@
               <td>{{ documento.punto_emision }}</td>
               <td>{{ documento.secuencial }}</td>
               <td><a href="estado_comprobante.jsp?codigo={{ documento.clave_acceso }}"><span class="glyphicon glyphicon-download"></span></a></td>
-              <td><a href="procesar_autorizacion.jsp?codigo="><span class="glyphicon glyphicon-download-alt"></span></a></td>
+              <td><a href="transform?data_file=config.ini"><span class="glyphicon glyphicon-download-alt"></span></a></td>
             </tr>
             {% endfor %}
           </tbody>

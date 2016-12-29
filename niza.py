@@ -1,52 +1,14 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask import render_template
-from datetime import datetime
-from flask import request
-from sqlalchemy.orm import exc
+
+from flask import request, make_response
+from Modelos import *
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:horiz0ns@localhost/niza'
 db = SQLAlchemy(app)
 
-
-class ele_contribuyentes(db.Model):
-    documento = db.Column('documento', db.String(20), primary_key=True)
-    razon_social = db.Column('razon_social', db.String(500))
-    nombre_comercial = db.Column('nombre_comercial', db.String(500))
-    direccion = db.Column('direccion', db.String(500))
-
-    def __init__(self, documento, razon_social, nombre_comercial, direccion):
-        self.documento = documento
-        self.razon_social = razon_social
-        self.nombre_comercial = nombre_comercial
-        self.direccion = direccion
-
-
-class ele_documentos(db.Model):
-    id = db.Column('id', db.Integer(), primary_key=True)
-    clave_acceso = db.Column('clave_acceso', db.String(100), unique=True)
-    establecimiento = db.Column('establecimiento', db.String(10))
-    punto_emision = db.Column('punto_emision', db.String(10))
-    secuencial = db.Column('secuencial', db.String(20))
-    fecha_emision = db.Column('fecha_emision', db.DateTime())
-    autorizacion = db.Column('autorizacion', db.String(100))
-    identificacionReceptor = db.Column('identificacionReceptor', db.String(20), index=True)
-    razonSocialReceptor = db.Column('razonSocialReceptor', db.String(500))
-    tipo = db.Column('tipo', db.String(10))
-    fecha_creacion = db.Column('fecha_creacion', db.DateTime(), default=datetime.now)
-
-    def __init__(self, clave_acceso, establecimiento, punto_emision, secuencial, fecha_emision,
-         autorizacion, identificacionReceptor, razonSocialReceptor, tipo):
-        self.clave_acceso = clave_acceso
-        self.establecimiento = establecimiento
-        self.punto_emision = punto_emision
-        self.secuencial = secuencial
-        self.fecha_emision = fecha_emision
-        self.autorizacion = autorizacion
-        self.identificacionReceptor = identificacionReceptor
-        self.razonSocialReceptor = razonSocialReceptor
-        self.tipo = tipo
 
 
 @app.route('/home')
@@ -57,7 +19,7 @@ def home():
 @app.route("/documento")
 def documento():
     documento = request.args.get("documento")
-    if documento:
+    if documento and documento != "9999999999999":
         print("Documento", documento)
 
         existe = ele_documentos.query.filter_by(identificacionReceptor=documento).count()
@@ -71,8 +33,25 @@ def documento():
             nombre=nombre, documento=documento)    
 
 
-            return render_template('busca_documento.html')        
+        return render_template('busca_documento.html')        
     return render_template('busca_documento.html')
+
+@app.route('/transform')
+def transform_view():
+    print("Descargar archivo")
+    csv = """"REVIEW_DATE","AUTHOR","ISBN","DISCOUNTED_PRICE"
+"1985/01/21","Douglas Adams",0345391802,5.95
+"1990/01/12","Douglas Hofstadter",0465026567,9.95
+"1998/07/15","Timothy ""The Parser"" Campbell",0968411304,18.99
+"1999/12/03","Richard Friedman",0060630353,5.95
+"2004/10/04","Randel Helms",0879755725,4.50"""
+    # We need to modify the response, so the first thing we 
+    # need to do is create a response out of the CSV string
+    response = make_response(csv)
+    # This is the key: Set the right header for the response
+    # to be downloaded, instead of just printed on the browser
+    response.headers["Content-Disposition"] = "attachment; filename=books.csv"
+    return response
 
 
 @app.route("/fecha")
