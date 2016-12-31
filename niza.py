@@ -41,12 +41,13 @@ def fecha():
     fecha = request.args.get("fecha")
     establecimiento = request.args.get("establecimiento")
     punto_emision = request.args.get("punto_emision")
-    secuencial = request.args.get("secuencial")
-    secuencial = "{0:0>9}".format(secuencial)
+    secuencial = request.args.get("secuencial")    
     ultimo_digito = request.args.get("ultimo_digito")
 
     if fecha and establecimiento and punto_emision and secuencial and ultimo_digito:
         print("Datos de Factura", fecha, establecimiento, punto_emision, secuencial, ultimo_digito)
+
+        secuencial = "{0:0>9}".format(secuencial)
 
         existe = ele_documentos.query.filter_by(fecha_emision=fecha, establecimiento=establecimiento, 
         punto_emision=punto_emision, secuencial=secuencial).count()
@@ -83,6 +84,16 @@ def descargarXML(xml=None):
         cfg.getConfig()
         return send_file(cfg.rutaXML + os.sep + xml, as_attachment=True)
 
+
+@app.route('/acerca')
+def acerca():
+    return render_template('acerca.html')
+    
+
+@app.route('/contacto')
+def contacto():
+    return render_template('contacto.html')
+    
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
