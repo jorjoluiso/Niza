@@ -42,14 +42,17 @@ def fecha():
     establecimiento = request.args.get("establecimiento")
     punto_emision = request.args.get("punto_emision")
     secuencial = request.args.get("secuencial")
+    secuencial = "{0:0>9}".format(secuencial)
     ultimo_digito = request.args.get("ultimo_digito")
 
     if fecha and establecimiento and punto_emision and secuencial and ultimo_digito:
         print("Datos de Factura", fecha, establecimiento, punto_emision, secuencial, ultimo_digito)
 
-        existe = ele_documentos.query.filter_by(fecha_emision=fecha, establecimiento=establecimiento, punto_emision=punto_emision, secuencial=secuencial).count()
+        existe = ele_documentos.query.filter_by(fecha_emision=fecha, establecimiento=establecimiento, 
+        punto_emision=punto_emision, secuencial=secuencial).count()
         if existe > 0:
-            nombreReceptor = ele_documentos.query.filter_by(fecha_emision=fecha, establecimiento=establecimiento, punto_emision=punto_emision, secuencial=secuencial).first()
+            nombreReceptor = ele_documentos.query.filter_by(fecha_emision=fecha, establecimiento=establecimiento, 
+            punto_emision=punto_emision, secuencial=secuencial).first()
             nombre = nombreReceptor.razonSocialReceptor
             documento = nombreReceptor.identificacionReceptor
             fecha_emision = nombreReceptor.fecha_emision
