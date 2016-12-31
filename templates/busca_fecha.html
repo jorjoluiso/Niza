@@ -21,16 +21,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                    <a class="navbar-brand" href="home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Niza</a>
+                <a class="navbar-brand" href="home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Niza</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                  <li><a href="documento"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Buscar por Documento</a></li>                  
-                  <li class="active"><a href="fecha"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Buscar por Fecha</a></li>
-                  <li><a href="/"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Acerca de:</a></li>
-                  <li><a href="/"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> Contacto</a></li>
+
+                    <li><a href="documento"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Buscar por Documento</a></li>
+                    <li class="active"><a href="fecha"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Buscar por Fecha</a></li>
+                    <li><a href="/"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Acerca de:</a></li>
+                    <li><a href="/"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> Contacto</a></li>
+
                 </ul>
 
 
@@ -43,26 +45,116 @@
         <br/>
         <br/>
         <br/>
+        <ol class="breadcrumb">
+            <li><a href="./home">Niza</a></li>
+            <li class="active">Busca por Fecha</li>
+        </ol>
     </div>
 
     <div class="container">
-        {% for contribuyente in ele_contribuyentes %}
-        <h3>{{ contribuyente.nombre_comercial }}</h3>
-        {% endfor %}
-
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
 
             {%- for message in get_flashed_messages() %} {{ message }} {%- endfor %}
 
-            <div class="panel-heading">Menú principal</div>
-            <div class="panel-body">
-                <a href="documento">Buscar por Documento</a>
+            <div class="panel-heading">
+                <h4>Busca por Fecha y Número de Factura</h4>
             </div>
             <div class="panel-body">
-                <a href="fecha">Buscar por Fecha</a>
+                <form action="fecha">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label for="fecha" class="control-label">Fecha</label>
+                                <input type="text" class="form-control" name="fecha" placeholder="aaaa-mm-dd">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label for="establecimiento" class="control-label">Establecimiento</label>
+                                <input type="text" class="form-control" name="establecimiento" placeholder="001">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label for="punto_emision" class="control-label">Punto de emisión</label>
+                                <input type="text" class="form-control" name="punto_emision" placeholder="001">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label for="secuencial" class="control-label">Número de Factura</label>
+                                <input type="text" class="form-control" name="secuencial" placeholder="1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label for="ultimo_digito" class="control-label">Último dígito de la Clave de Acceso</label>
+                                <input type="text" class="form-control" name="ultimo_digito" placeholder="1">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </form>
             </div>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+
+                <h4>{{ nombre }} {{ documento }}</h4>
+
+            </div>
+            <div class="panel-body">
 
 
+                <h5></h5>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Est.</th>
+                            <th>Pto.</th>
+                            <th>Número</th>
+                            <th>XML</th>
+                            <th>PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>
+                                {% if fecha_emision is defined %}  
+                                    {{ fecha_emision.strftime('%Y-%m-%d') }} 
+                                {% else %} 
+                                    
+                                {% endif %}
+                            </td>
+                            <td>{{ establecimiento }}</td>
+                            <td>{{ punto_emision }}</td>
+                            <td>{{ secuencial }}</td>
+                            <td>
+                                {% if clave_acceso is defined %} 
+                                    <a href="descargar_xml/{{ clave_acceso }}.xml"><span class="glyphicon glyphicon-download"></span></a>
+                                {% else %} 
+                                    
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if clave_acceso is defined %} 
+                                    <a href="descargar_pdf/{{ clave_acceso }}.pdf"><span class="glyphicon glyphicon-download-alt"></span></a>
+                                {% else %} 
+                                    
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
         </div>
     </div>
 
