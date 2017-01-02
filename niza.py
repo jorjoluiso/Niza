@@ -47,7 +47,9 @@ def fecha():
     if fecha and establecimiento and punto_emision and secuencial and ultimo_digito:
         print("Datos de Factura", fecha, establecimiento, punto_emision, secuencial, ultimo_digito)
 
-        secuencial = "{0:0>9}".format(secuencial)
+        establecimiento = "{0:0>3}".format(establecimiento)
+        punto_emision = "{0:0>3}".format(punto_emision)
+        secuencial = "{0:0>9}".format(secuencial)        
 
         existe = ele_documentos.query.filter_by(fecha_emision=fecha, establecimiento=establecimiento, 
         punto_emision=punto_emision, secuencial=secuencial).count()
