@@ -5,8 +5,13 @@ from Modelos import *
 from Config import *
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:horiz0ns@localhost/niza'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/niza'
 db = SQLAlchemy(app)
+
+
+@app.route("/")
+def index():
+    return render_template('home.html', ele_contribuyentes=ele_contribuyentes.query.all())
 
 
 @app.route('/home')
